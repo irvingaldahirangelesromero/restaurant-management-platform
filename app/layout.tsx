@@ -1,5 +1,5 @@
 import React from 'react';
-import '@/app/ui/global.css';
+import './ui/global.css';
 
 export default function RootLayout({ children,}: {
         children: React.ReactNode;
@@ -7,7 +7,7 @@ export default function RootLayout({ children,}: {
     return (
         <html lang="es">
             <body>
-                (children)  {/* Representa el contenido de las páginas o layouts anidados. El RootLayout envuelve todo lo demás. */}
+                {children}  {/* Representa el contenido de las páginas o layouts anidados. El RootLayout envuelve todo lo demás. */}
             </body>
         </html>
     );
