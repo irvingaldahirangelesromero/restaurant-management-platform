@@ -2,9 +2,8 @@
     display: flex;
     justify-content: center;
     align-items: center;  
-    height: 100vh; /* ocupa toda la altura de la ventana */
-    width: 100vw;  /* opcional: ocupa todo el ancho */
-
+    height: 100vh;
+    width: 100vw;
 }
 
 .pl {
