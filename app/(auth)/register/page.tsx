@@ -1,16 +1,17 @@
 'use client';
 import { useState } from 'react';
-import Button from '../../../components/Button';
-import { useHandleSubmit } from '../../../hooks/handleSubmit';
+import Button from '@/components/Button';
+import { useHandleSubmit } from '@/hooks/handleSubmit';
 
 export default function RegisterPage() {
     const [nombre, setNombre] = useState('');
     const [apellido, setApellido] = useState('');
-    const [email, setEmail] = useState('');
+    const [correo, setCorreo] = useState('');
     const [lada, setLada] = useState('+52');
     const [telefono, setTelefono] = useState('');
-    const [password, setPassword] = useState('');
+    const [password, setpassword] = useState('');
     const [agreed, setAgreed] = useState(false);
+
     const [error, setError] = useState<string | null>(null);
     const { handleSubmit } = useHandleSubmit();
 
@@ -72,8 +73,9 @@ export default function RegisterPage() {
                         onSubmit={(e) =>
                             handleSubmit(
                                 e,
-                                'URL_API',
-                                { nombre, apellido, email, telefono: `${lada}${telefono}`, password },
+                                // `${process.env.API_BACKEND_URL}/auth/register`,
+                                "/api/auth/register",
+                                { nombre, apellido, correo, telefono: `${lada}${telefono}`, password },
                                 setError,
                                 '/dashboard'
                             )
@@ -82,15 +84,15 @@ export default function RegisterPage() {
                         <div className="flex space-x-2">
                             <div className='relative w-1/2'>
                                 <input
-                                id="nombre"
-                                name="nombre"
-                                type="text"
-                                required
-                                autoComplete="given-name"
-                                placeholder="Nombre"
-                                className="block w-full rounded-lg border border-gray-200 py-2.5 sm:py-2.5 px-3 sm:px-4 text-gray-900 shadow-sm placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-300 sm:text-sm"
-                                value={nombre}
-                                onChange={(e) => setNombre(e.target.value)}
+                                    id="nombre"
+                                    name="nombre"
+                                    type="text"
+                                    required
+                                    autoComplete="given-name"
+                                    placeholder="Nombre"
+                                    className="block w-full rounded-lg border border-gray-200 py-2.5 sm:py-2.5 px-3 sm:px-4 text-gray-900 shadow-sm placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-300 sm:text-sm"
+                                    value={nombre}
+                                    onChange={(e) => setNombre(e.target.value)}
                                 />
                                 <span className="absolute left-3 sm:left-4 top-0 -translate-y-1/2 bg-white px-1 text-xs text-gray-600">
                                     Nombre*
@@ -99,15 +101,15 @@ export default function RegisterPage() {
 
                             <div className='relative w-1/2'>
                                 <input
-                                id="apellido"
-                                name="apellido"
-                                type="text"
-                                required
-                                autoComplete="family-name"
-                                placeholder="Apellido"
-                                className="block w-full rounded-lg border border-gray-200 py-2.5 sm:py-2.5 px-3 sm:px-4 text-gray-900 shadow-sm placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-300 sm:text-sm"
-                                value={apellido}
-                                onChange={(e) => setApellido(e.target.value)}
+                                    id="apellido"
+                                    name="apellido"
+                                    type="text"
+                                    required
+                                    autoComplete="family-name"
+                                    placeholder="Apellido"
+                                    className="block w-full rounded-lg border border-gray-200 py-2.5 sm:py-2.5 px-3 sm:px-4 text-gray-900 shadow-sm placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-300 sm:text-sm"
+                                    value={apellido}
+                                    onChange={(e) => setApellido(e.target.value)}
                                 />
                                 <span className="absolute left-3 sm:left-4 top-0 -translate-y-1/2 bg-white px-1 text-xs text-gray-600">
                                     Apellido*
@@ -117,15 +119,15 @@ export default function RegisterPage() {
 
                         <div className="relative">
                             <input
-                            id="email"
-                            name="email"
-                            type="email"
-                            required
-                            placeholder="Correo electrónico"
-                            autoComplete="email"
-                            className="block w-full rounded-lg border border-gray-200 py-2.5 sm:py-2.5 px-3 sm:px-4 text-gray-900 shadow-sm placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-300 sm:text-sm sm:leading-6"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
+                                id="correo"
+                                name="correo"
+                                type="email"
+                                required
+                                placeholder="Correo electrónico"
+                                autoComplete="correo"
+                                className="block w-full rounded-lg border border-gray-200 py-2.5 sm:py-2.5 px-3 sm:px-4 text-gray-900 shadow-sm placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-300 sm:text-sm sm:leading-6"
+                                value={correo}
+                                onChange={(e) => setCorreo(e.target.value)}
                             />
                             <span className="absolute left-4 top-0 -translate-y-1/2 bg-white px-1 text-xs text-gray-600">
                                 Correo electrónico*
@@ -147,58 +149,58 @@ export default function RegisterPage() {
                                     <option value="+52">+52 </option>
                                 </select>
                                 <input
-                                id="telefono"
-                                name="telefono"
-                                type="tel"
-                                required
-                                inputMode="numeric"
-                                pattern="[0-9]{7,15}"
-                                placeholder="Teléfono"
-                                className="flex-1 rounded-lg border border-gray-200 py-2.5 sm:py-2.5 px-3 sm:px-4 text-gray-900 shadow-sm placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-300 sm:text-sm sm:leading-6"
-                                value={telefono}
-                                onChange={(e) => setTelefono(e.target.value.replace(/\D/g, ''))}
+                                    id="telefono"
+                                    name="telefono"
+                                    type="tel"
+                                    required
+                                    inputMode="numeric"
+                                    pattern="[0-9]{7,15}"
+                                    placeholder="Teléfono"
+                                    className="flex-1 rounded-lg border border-gray-200 py-2.5 sm:py-2.5 px-3 sm:px-4 text-gray-900 shadow-sm placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-300 sm:text-sm sm:leading-6"
+                                    value={telefono}
+                                    onChange={(e) => setTelefono(e.target.value.replace(/\D/g, ''))}
                                 />
                             </div>
                         </div>
 
                         <div className="relative">
                             <input
-                            id="password"
-                            name="password"
-                            type="password"
-                            required
-                            placeholder="Contraseña"
-                            autoComplete="new-password"
-                            className="block w-full rounded-lg border border-gray-200 py-2.5 sm:py-2.5 px-3 sm:px-4 text-gray-900 shadow-sm placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-300 sm:text-sm sm:leading-6"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
+                                id="password"
+                                name="password"
+                                type="password"
+                                required
+                                placeholder="password"
+                                autoComplete="new-password"
+                                className="block w-full rounded-lg border border-gray-200 py-2.5 sm:py-2.5 px-3 sm:px-4 text-gray-900 shadow-sm placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-300 sm:text-sm sm:leading-6"
+                                value={password}
+                                onChange={(e) => setpassword(e.target.value)}
                             />
                             <span className="absolute left-4 top-0 -translate-y-1/2 bg-white px-1 text-xs text-gray-600">
-                                Contraseña*
+                                password*
                             </span>
                         </div>
 
                         <div className="flex items-start pt-1 pb-3">
                             <input
-                            id="terms"
-                            name="terms"
-                            type="checkbox"
-                            checked={agreed}
-                            onChange={(e) => setAgreed(e.target.checked)}
-                            className="h-4 w-4 text-gray-900 border-gray-300 rounded focus:ring-gray-900"
+                                id="terms"
+                                name="terms"
+                                type="checkbox"
+                                checked={agreed}
+                                onChange={(e) => setAgreed(e.target.checked)}
+                                className="h-4 w-4 text-gray-900 border-gray-300 rounded focus:ring-gray-900"
                             />
                             <label
                                 htmlFor="terms"
                                 className="ml-3 text-sm font-light text-gray-600"
                             >
-                             Acepto los{' '}
-                             <span className="font-medium hover:underline text-gray-900 cursor-pointer">
-                                 Términos
-                             </span>
-                             ,y {' '}
-                             <span className="font-medium hover:underline text-gray-900 cursor-pointer">
+                                Acepto los{' '}
+                                <span className="font-medium hover:underline text-gray-900 cursor-pointer">
+                                    Términos y condiciones
+                                </span>
+                                ,y {' '}
+                                <span className="font-medium hover:underline text-gray-900 cursor-pointer">
                                     Política de Privacidad
-                            </span>
+                                </span>
                             </label>
                         </div>
 
@@ -213,15 +215,15 @@ export default function RegisterPage() {
                     </form>
 
                     <p className="mt-4 text-center text-sm text-gray-500">
-                    ¿Ya tienes una cuenta?{' '}
-                    <Button
-                        type="button"
-                        style=''
-                        label="Inicia sesión"
-                        url="/login"
-                        className="font-semibold leading-6 text-[#232f38] hover:text-[#3b4b57]"
-                        ico=""
-                    />
+                        ¿Ya tienes una cuenta?{' '}
+                        <Button
+                            type="button"
+                            style=''
+                            label="Inicia sesión"
+                            url="/login"
+                            className="font-semibold leading-6 text-[#232f38] hover:text-[#3b4b57]"
+                            ico=""
+                        />
 
                     </p>
                 </div>
