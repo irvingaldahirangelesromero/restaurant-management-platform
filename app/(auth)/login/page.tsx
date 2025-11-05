@@ -1,11 +1,11 @@
 'use client';
 
 import { useState } from 'react';
-import Button from '../../../components/Button'
-import { useHandleSubmit } from '../../../hooks/handleSubmit';
+import Button from '@/components/Button'
+import { useHandleSubmit } from '@/hooks/handleSubmit';
 
 export default function LoginPage() {
-    const [email, setEmail] = useState('')
+    const [correo, setCorreo] = useState('')
     const [password, setPassword] = useState('')
     const [error, setError] = useState<string | null>(null)
 
@@ -13,7 +13,7 @@ export default function LoginPage() {
 
     return (
         <div className="min-h-screen bg-gray-50 lg:grid lg:grid-cols-[1fr_1.3fr] lg:items-center">
-            
+
             <div className="flex flex-col justify-center px-6 py-12 lg:px-10">
                 <div className="mx-auto w-full max-w-sm lg:max-w-md">
                     <div className="flex items-center space-x-2 mb-12">
@@ -62,14 +62,17 @@ export default function LoginPage() {
 
                     <form
                         className="space-y-6"
-                        onSubmit={(e) =>
-                            handleSubmit(
+                        onSubmit={
+                            (e) => handleSubmit(
                                 e,
-                                'URL_API',
-                                { email, password },
+                                // `${process.env.API_BACKEND_URL}/auth/register`,
+                                "/api/auth/login",
+                                {correo, password},
                                 setError,
                                 '/dashboard'
-                            )}>
+                            )
+                        }
+                    >
 
                         <div className='relative'>
                             <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900 sr-only">
@@ -83,8 +86,8 @@ export default function LoginPage() {
                                 required
                                 placeholder="Ingresa tu correo electronico"
                                 className="block w-full rounded-lg border border-gray-200 py-3.5 px-4 text-gray-900 shadow-sm placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-300 sm:text-sm sm:leading-6"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
+                                value={correo}
+                                onChange={(e) => setCorreo(e.target.value)}
                             />
                             <span className="absolute left-4 top-0 -translate-y-1/2 bg-white px-1 text-xs text-gray-600">Correo electronico*</span>
                         </div>
