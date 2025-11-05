@@ -1,14 +1,33 @@
+// Archivo de configuración para TypeScript
 {
   "compilerOptions": {
     "jsx": "react-jsx",
-    "baseUrl": "src/",
+    "baseUrl": "./",
     "paths": {
+      
+      // alias para rutas
+      
       "@/styles/*": [
         "styles/*"
       ],
       "@/components/*": [
         "components/*"
-      ]
+      ],
+      "@/types/*": [
+        "types/*"
+      ],
+      "@/hooks/*": [
+        "hooks/*"
+      ],
+      "@/app/*": [
+        "app/*"
+      ],
+      "@/lib/*": [
+        "lib/*"
+      ],
+      "@/public/*": [
+        "public/*"
+      ],
     },
     "target": "ES2017",
     "lib": [

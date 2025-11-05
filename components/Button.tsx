@@ -1,7 +1,7 @@
 'use client';
 
-import { ButtonProps, ButtonType } from "../types/ButtonProps";
-import { useRedirect } from "../hooks/useRedirect";
+import { ButtonProps, ButtonType } from "@/types/ButtonProps";
+import { useRedirect } from "@/hooks/useRedirect";
 
 export default function Button({
     type = ButtonType,
