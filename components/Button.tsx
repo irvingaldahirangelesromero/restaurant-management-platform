@@ -1,10 +1,11 @@
 'use client';
 
-import { ButtonProps } from "../types/ButtonProps";
-// import { ImgProps } from "../types/ImgProps";
-import {useRedirect} from "../hooks/useRedirect";
+import { ButtonProps, ButtonType } from "@/types/ButtonProps";
+import { useRedirect } from "@/hooks/useRedirect";
 
 export default function Button({
+    type = ButtonType,
+    style = '',
     label = '',
     url = '',
     className = '',
@@ -13,7 +14,11 @@ export default function Button({
     const { redirectTo } = useRedirect()
 
     return (
-        <button className={`${className}`} onClick={() => redirectTo(url)}>
+        <button
+            type={type}
+            className={`${className}`}
+            onClick={() => redirectTo(url)}
+        >
             {ico && <span className="mr-2"> {ico}</span>} {/*&& = si condición es verdadera mostrar*/}
             {label}
         </button>
