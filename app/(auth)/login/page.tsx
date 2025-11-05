@@ -34,7 +34,7 @@ export default function LoginPage() {
                             {error}
                         </div>
                     )}
-
+{/* 
                     <Button
                         type='button'
                         style=''
@@ -58,7 +58,7 @@ export default function LoginPage() {
                         <div className="relative flex justify-center text-sm">
                             <span className="bg-white px-4 text-gray-400 font-light">o</span>
                         </div>
-                    </div>
+                    </div> */}
 
                     <form
                         className="space-y-6"
