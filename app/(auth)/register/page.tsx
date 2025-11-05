@@ -15,6 +15,32 @@ export default function RegisterPage() {
     const [error, setError] = useState<string | null>(null);
     const { handleSubmit } = useHandleSubmit();
 
+    const nameRegex = /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]{1,30}$/;
+    const phoneRegex = /^\d{10,15}$/;
+
+    const isNameValid = nameRegex.test(nombre);
+    const isLastnameValid = nameRegex.test(apellido);
+    const isPhoneValid = phoneRegex.test(telefono);
+
+    const getPasswordScore = (pwd: string) => {
+        let score = 0;
+        if (/.{8,}/.test(pwd)) score++;
+        if (/[a-z]/.test(pwd)) score++;
+        if (/[A-Z]/.test(pwd)) score++;
+        if (/\d/.test(pwd)) score++;
+        if (/[!@#$%^&*(),.?":{}|<>_\-]/.test(pwd)) score++;
+        return score;
+    };
+
+    const passwordScore = getPasswordScore(password);
+
+    const strengthColor = [
+        "bg-red-500",     
+        "bg-orange-400",  
+        "bg-yellow-400",  
+        "bg-green-500",   
+        "bg-green-900"
+    ][Math.min(passwordScore, 4)];
 
 
     return (
@@ -37,7 +63,7 @@ export default function RegisterPage() {
                         </div>
                     )}
 
-                    <Button
+                    {/* <Button
                         type="button"
                         style=''
                         label="Registrarse con Google"
@@ -66,7 +92,7 @@ export default function RegisterPage() {
                         <div className="relative flex justify-center text-sm">
                             <span className="bg-white px-4 text-gray-400 font-light">o</span>
                         </div>
-                    </div>
+                    </div> */}
 
                     <form
                         className="space-y-4"
@@ -90,10 +116,14 @@ export default function RegisterPage() {
                                     required
                                     autoComplete="given-name"
                                     placeholder="Nombre"
-                                    className="block w-full rounded-lg border border-gray-200 py-2.5 sm:py-2.5 px-3 sm:px-4 text-gray-900 shadow-sm placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-300 sm:text-sm"
-                                    value={nombre}
+                                    className={`block w-full rounded-lg border py-2.5 px-3 text-gray-900 shadow-sm placeholder:text-gray-400 focus:ring-2 sm:text-sm
+                                        ${nombre && !isNameValid ? "border-red-400 focus:ring-red-300" : "border-gray-200 focus:ring-gray-300"}`}
+                                                                     value={nombre}
                                     onChange={(e) => setNombre(e.target.value)}
                                 />
+                                {nombre && !isNameValid && (
+                                    <p className="text-xs text-red-500 mt-1">Solo letras, máximo 30 caracteres.</p>
+                                )}
                                 <span className="absolute left-3 sm:left-4 top-0 -translate-y-1/2 bg-white px-1 text-xs text-gray-600">
                                     Nombre*
                                 </span>
@@ -107,10 +137,14 @@ export default function RegisterPage() {
                                     required
                                     autoComplete="family-name"
                                     placeholder="Apellido"
-                                    className="block w-full rounded-lg border border-gray-200 py-2.5 sm:py-2.5 px-3 sm:px-4 text-gray-900 shadow-sm placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-300 sm:text-sm"
-                                    value={apellido}
+                                    className={`block w-full rounded-lg border py-2.5 px-3 text-gray-900 shadow-sm placeholder:text-gray-400 focus:ring-2 sm:text-sm
+                                        ${apellido && !isLastnameValid ? "border-red-400 focus:ring-red-300" : "border-gray-200 focus:ring-gray-300"}`}
+                                                                    value={apellido}
                                     onChange={(e) => setApellido(e.target.value)}
                                 />
+                                {apellido && !isLastnameValid && (
+                                    <p className="text-xs text-red-500 mt-1">Solo letras, máximo 30 caracteres.</p>
+                                )}
                                 <span className="absolute left-3 sm:left-4 top-0 -translate-y-1/2 bg-white px-1 text-xs text-gray-600">
                                     Apellido*
                                 </span>
@@ -156,10 +190,14 @@ export default function RegisterPage() {
                                     inputMode="numeric"
                                     pattern="[0-9]{7,15}"
                                     placeholder="Teléfono"
-                                    className="flex-1 rounded-lg border border-gray-200 py-2.5 sm:py-2.5 px-3 sm:px-4 text-gray-900 shadow-sm placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-300 sm:text-sm sm:leading-6"
+                                    className={`flex-1 rounded-lg border py-2.5 px-3 text-gray-900 shadow-sm placeholder:text-gray-400 focus:ring-2 sm:text-sm
+                                        ${telefono && !isPhoneValid ? "border-red-400 focus:ring-red-300" : "border-gray-200 focus:ring-gray-300"}`}
                                     value={telefono}
                                     onChange={(e) => setTelefono(e.target.value.replace(/\D/g, ''))}
                                 />
+                                {telefono && !isPhoneValid && (
+                                    <p className="text-xs text-red-500 mt-1">Debe contener entre 7 y 15 dígitos.</p>
+                                )}
                             </div>
                         </div>
 
@@ -176,8 +214,16 @@ export default function RegisterPage() {
                                 onChange={(e) => setpassword(e.target.value)}
                             />
                             <span className="absolute left-4 top-0 -translate-y-1/2 bg-white px-1 text-xs text-gray-600">
-                                password*
+                                Contraseña*
                             </span>
+                            {password.length > 0 && (
+                                <div className="mt-2 w-full h-2 bg-gray-200 rounded-full overflow-hidden">
+                                    <div
+                                        className={`h-full transition-all duration-300 ${strengthColor}`}
+                                        style={{ width: `${(passwordScore / 5) * 100}%` }}
+                                    ></div>
+                                </div>
+                            )}
                         </div>
 
                         <div className="flex items-start pt-1 pb-3">
@@ -206,11 +252,14 @@ export default function RegisterPage() {
 
                         <button
                             type="submit"
-                            className="flex w-full justify-center rounded-xl bg-[#232f38] px-3 py-2.5 sm:py-2.5 text-sm font-semibold leading-6 text-white shadow-lg hover:bg-[#3b4b57] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#232f38]"
                             disabled={!agreed}
+                            className={`flex w-full justify-center rounded-xl px-3 py-2.5 text-sm font-semibold leading-6 text-white shadow-lg 
+                                transition-all duration-300 
+                                ${agreed ? "bg-[#232f38] hover:bg-[#3b4b57]" : "bg-[#232f38] opacity-40 cursor-not-allowed"}`}
                         >
                             Crear cuenta
                         </button>
+
 
                     </form>
 
