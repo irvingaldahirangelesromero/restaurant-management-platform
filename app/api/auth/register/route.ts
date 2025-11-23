@@ -15,6 +15,24 @@ export async function POST(req: Request) {
       { status: 400 }
     );
   }
+
+  // Longitud mínima de 8 caracteres
+  if (password.length < 8) {
+    return Response.json(
+      { message: "La contraseña debe tener al menos 8 caracteres." },
+      { status: 400 }
+    );
+  }
+
+  /* Opcional: Validar complejidad (Mayúscula, número, especial) según tu PDF
+  const complexityRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>_\-])/;
+  if (!complexityRegex.test(password)) {
+     return Response.json(
+      { message: "La contraseña debe incluir mayúsculas, números y símbolos." },
+      { status: 400 }
+    );
+  }
+*/
   let existingUser: any[];
   
   try {
